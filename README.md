@@ -1,3 +1,3 @@
 # learningpython
 
-Only few trash code to lean python
+Only few trash code to learn python
