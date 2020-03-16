@@ -23,8 +23,18 @@ def saisie():
 saisie()
 print(valeur)
 
-a = valeur[0]
-b = valeur[1]
-c = valeur[2]
+if len(valeur) == 0:
+    print(volBoite())
+elif len(valeur) == 1:
+    a = valeur[0]
+    print(volBoite(a))
+elif len(valeur) == 2:
+    a = valeur[0]
+    b = valeur[1]
+    print(volBoite(a, b))
+else:
+    a = valeur[0]
+    b=valeur[1]
+    c=valeur[2]
+    print(volBoite(a, b, c))    
 
-print(volBoite(a, b, c))
