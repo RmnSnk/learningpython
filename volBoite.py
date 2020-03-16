@@ -1,11 +1,18 @@
-#Programme bug
+# Programme qui renvoie le volume d'un solide en fonction du nombre d'argument passé
+
 
 valeur = []
 
 
 def volBoite(a=10, b=10, c=10):
-    return a * b * c
-    
+    if len(valeur) == 0:
+        return "Merci de saisir au moins une valeur !"
+    if len(valeur) == 1:  # Volume d'un cube
+        return a ** 3
+    elif len(valeur) == 2:  # Volume d'une pyramide carré
+        return ((a ** 2) * b) / 3
+    else:
+        return a * b * c  # Volume d'un parallélépipède
     
 def saisie():
     global valeur
@@ -13,7 +20,7 @@ def saisie():
         print('Entrez la valeur ' + str(i + 1) + " : ", end='')
         v = input()
         if v != "":
-            valeur.append(int(v))
+            valeur.append(float(v))
         i = + 1
     return valeur
 
