@@ -12,16 +12,14 @@ def saisie():
     for i in range(3):
         print('Entrez la valeur ' + str(i + 1) + " : ", end='')
         v = input()
-        if v == "":
-            valeur.append(v)
-        else:
+        if v != "":
             valeur.append(int(v))
         i = + 1
     return valeur
 
 
 saisie()
-print(valeur)
+print('Vous avez saisie : ' + str(valeur))
 
 if len(valeur) == 0:
     print(volBoite())
