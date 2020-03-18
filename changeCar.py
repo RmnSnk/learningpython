@@ -7,8 +7,8 @@ parametres = []
 
 def changeCar(ch, ca1, ca2, debut, fin):
     'Fonction qui modifie un caractère d\'une phrase'
-    debut, fin = int(debut), int(fin) + 1
-    while debut < fin:
+    debut, fin = int(debut) - 1, int(fin) - 1
+    while debut <= fin:
         if ch[debut] == ca1:
             ch[debut] = ca2
         debut += 1
