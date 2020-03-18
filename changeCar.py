@@ -7,13 +7,11 @@ parametres = []
 
 def changeCar(ch, ca1, ca2, debut, fin):
     'Fonction qui modifie un caractère d\'une phrase'
-    i = 0
-    while i < len(ch):
-        if ch[i] == ca1:
-            ch[i] = ca2
-            i += 1
-        else:
-            i += 1
+    debut, fin = int(debut), int(fin) + 1
+    while debut < fin:
+        if ch[debut] == ca1:
+            ch[debut] = ca2
+        debut += 1
     ch_join = ''.join(ch)
     return ch_join
 
@@ -23,8 +21,8 @@ ch_liste = list(chaine_caractere)
 
 ca1 = str(input('Saisissiez le caractère à remplacer : '))
 ca2 = str(input('Saisissez le caractère de remplacement : '))
-debut = str(input('Saisissez le début | <ENTER> pour passer : '))
-fin = str(input('Saisissez la fin | <ENTER> pour passer: '))
+debut = input('Saisissez le début | <ENTER> pour passer : ')
+fin = input('Saisissez la fin | <ENTER> pour passer: ')
 
 # on créer un liste dont le nombre d'élément varie en fonction des éléments saisis
 
@@ -38,7 +36,7 @@ else:
 if fin != "":
     parametres.append(fin)
 else:
-    parametres.append(len(ch_liste) + 1)
+    parametres.append(len(ch_liste))
 
 
 
