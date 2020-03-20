@@ -5,7 +5,8 @@ def saisie_liste():
     i = 1
     liste = []
     while i:
-        saisie = input("merci de saisir une valeur (ne rien entrer pour terminer) : ")
+        saisie = input(
+            "merci de saisir une valeur (ne rien entrer pour terminer) : ")
         if saisie != '':
             liste.append(int(saisie))
         else:
@@ -14,8 +15,8 @@ def saisie_liste():
 
 
 def eleMax(serie, debut, fin):
-    maximum, i = serie[debut], serie[debut]
-    for i in range(serie[debut], serie[fin-1]):
+    maximum, i = serie[debut], debut
+    for i in range(debut, fin):
         if serie[i] > maximum:
             maximum = serie[i]
         i += 1
@@ -24,6 +25,6 @@ def eleMax(serie, debut, fin):
 
 serie = saisie_liste()
 
-resultat = eleMax(serie, debut=0, fin=5)
+resultat = eleMax(serie, debut=0, fin=len(serie))
 
 print(resultat)
