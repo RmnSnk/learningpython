@@ -15,8 +15,10 @@ def saisie_liste():
             i = 0
     return liste
 
+serie = saisie_liste()
+len_serie = len(serie)
 
-def eleMax(serie, debut, fin):
+def eleMax(serie, debut=0, fin=len_serie):
     maximum, i = serie[debut], debut
     for i in range(debut, fin):
         if serie[i] > maximum:
@@ -25,24 +27,6 @@ def eleMax(serie, debut, fin):
     return maximum
 
 
-serie = saisie_liste()
-
-while i:
-    a = int(input('Saissisez le début de la recherche | Entrez pour passer : '))
-    if a > len(serie) or a < 0:
-        print('Vous êtes idiot')
-    else:
-        i = 0
-
-while j:
-    b = int(input('Saissisez la fin de la recherche | Entrez pour passer : '))
-    if b > len(serie) or b <= a:
-        print('BAKA !!!')
-    else:
-        j = 0
-
-## Il reste à coder la prise en compte de a = début et b = fin
-
-resultat = eleMax(serie, debut=0, fin=len(serie))
+resultat = eleMax(serie, 1, 8)
 
 print(resultat)
