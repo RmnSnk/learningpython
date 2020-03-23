@@ -6,8 +6,8 @@ from random import randrange
 # --- définition des fonctions gestionnaires d'événements : ---
 def drawline():
     "Tracé d'une ligne dans le canevas can1"
-    global x1, y1, x2, y2, coul
-    can1.create_line(x1, y1, x2, y2, width=1, fill=coul)
+    x1, y1, x2, y2 = 10, 390, 390, 10
+    can1.create_arc(x1, y1, x2, y2, width=1, fill=coul)
     # modification des coordonnées pour la ligne suivante :
     y2, y1 = y2 + 10, y1 - 10
 
