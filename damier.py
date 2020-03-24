@@ -6,11 +6,12 @@ from tkinter import *
 # on boucle la fonction pour pour faire toutes les lignes
 
 def damier():
-    x = 0
-    for i in range(5):
-        can.create_rectangle(0 + x, 0, 100 + x, 100, fill='ivory')
-        can.create_rectangle(100 + x, 0, 200 + x, 100, fill='black')
-        x += 200
+    x, y = 0, 0
+    col1, col2 = 'ivory', 'black'
+    for i in range(10):
+        can.create_rectangle(x, y, x + 100, y + 100, fill=col1)
+        x += 100
+        col1, col2 = col2, col1
 
 
 
