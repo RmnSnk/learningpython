@@ -34,7 +34,7 @@ def point():
 fen = Tk()
 can = Canvas(fen, width=1000, height=1000, bg='red')
 can.pack(side=TOP, padx=3, pady=3)
-bou1 = Button(fen, text='Quittez', command=fen.quit)
+bou1 = Button(fen, text='Quitter', command=fen.quit)
 bou1.pack(side=BOTTOM)
 bou2 = Button(fen, text='Damier', command=damier)
 bou2.pack(side=LEFT)
