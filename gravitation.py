@@ -32,6 +32,11 @@ def avance_mars(gd, hb):
     global x1, y1, r1
     x1, y1 = x1 + gd, y1 + hb
     can1.coords(mars, x1 - 20, y1 - 20, x1 + 20, y1 + 20)
+    valDis.configure(text='Distance Terre - Mars : ' +
+      str(dist()) + ' millions de km')
+    valGrav.configure(text='Force de gravité Terre - Mars : ' +
+      str(grav()) + ' Newtons')
+
 
 def depl_gauche_mars():
     avance_mars(-10, 0)
@@ -39,6 +44,11 @@ def depl_gauche_mars():
 def depl_droite_mars():
     avance_mars(+10, 0)
 
+def depl_haut_mars():
+    avance_mars(0, -10)
+
+def depl_bas_mars():
+    avance_mars(0, +10)
 
 # --------------Programme principal-------------------
 
@@ -60,19 +70,26 @@ fen1.title('Gravitation Mars vs Terre')
 Label(fen1, text='Masse de Mars : 6,39e+23 kg').grid(row=1, column=1)
 Label(fen1, text='Echelle : 100px = 19 millions de km').grid(row=1, column=2)
 Label(fen1, text='Masse de la Terre : 5,972e+24 kg').grid(row=1, column=3)
-Label(fen1, text='Distance Terre - Mars : ' +
-      str(dist()) + ' millions de km').grid(row=3, column=1)
-Label(fen1, text='Force de gravité Terre - Mars : ' +
-      str(grav()) + ' Newtons').grid(row=3, column=3)
+
+valDis = Label(fen1, text='Distance Terre - Mars : ' +
+      str(dist()) + ' millions de km')
+valDis.grid(row=3, column=1)
+
+valGrav = Label(fen1, text='Force de gravité Terre - Mars : ' +
+      str(grav()) + ' Newtons')
+valGrav.grid(row=3, column=3)
 
 can1 = Canvas(fen1, bg='black', height=1000, width=1000)
 can1.grid(row=2, column=1, columnspan=3)
 mars = can1.create_oval(x1 - 20, y1 - 20, x1 + 20, y1 + 20, fill='red')
 terre = can1.create_oval(x2 - 38, y2 - 38, x2 + 38, y2 + 38, fill='blue')
-Button(fen1, text='Quitter', command=fen1.quit).grid(row=4, column=2, sticky=S)
-
-Button(fen1, text='<', command=depl_gauche_mars).grid(row=4, column=1)
-Button(fen1, text='>', command=depl_droite_mars).grid(row=5, column=1)
+Button(fen1, text='Quitter', command=fen1.quit).grid(row=4, column=2)
+Button(fen1, text='gauche', command=depl_gauche_mars).grid(
+    row=4, column=1, sticky=E)
+Button(fen1, text='droite', command=depl_droite_mars).grid(
+    row=5, column=1, sticky=E)
+Button(fen1, text='haut', command=depl_haut_mars).grid(row=4, column=2, sticky=W)
+Button(fen1, text='bas', command=depl_bas_mars).grid(row=5, column=2, sticky=W)
 
 # démarrage du réceptionnaire d'évènement
 fen1.mainloop()
