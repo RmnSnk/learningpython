@@ -26,6 +26,18 @@ def grav():
     return grav
 
 # reste à programmer : la fonction de déplacement et les boutons
+# pour avancer Mars
+
+def avance_mars(gd, hb):
+    global x1, y1
+    x1, y1 = x1 + gd, y1 + hb
+    can1.coords(mars, x1 - 20, y1, x1 - 20 + 20, y1 + 20)
+    
+def depl_gauche_mars():
+    avance_mars(-10, 0)
+
+def depl_droite_mars():
+    avance_mars(+10, 0)
 
 
 # --------------Programme principal-------------------
@@ -59,7 +71,9 @@ mars = can1.create_oval(x1 - 20, y1 - 20, x1 + 20, y1 + 20, fill='red')
 terre = can1.create_oval(x2 - 38, y2 - 38, x2 + 38, y2 + 38, fill='blue')
 Button(fen1, text='Quitter', command=fen1.quit).grid(row=4, column=2, sticky=S)
 
-
+Button(fen1, text='Gauche', command=depl_gauche_mars).grid(row=4, column=1)
+Button(fen1, text='Droite', command=depl_droite_mars).grid(row=5, column=1)
 
 # démarrage du réceptionnaire d'évènement
 fen1.mainloop()
+fen1.destroy()
