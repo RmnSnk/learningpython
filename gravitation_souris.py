@@ -39,6 +39,10 @@ def avance_mars(gd, hb):
     valGrav.configure(text='Force de gravité Terre - Mars : ' +
       str(grav()) + ' Newtons')
 
+def choix_planete():
+    planete = planete.get()
+    return planete
+
 
 def depl_gauche_mars():
     avance_mars(-10, 0)
@@ -52,30 +56,6 @@ def depl_haut_mars():
 def depl_bas_mars():
     avance_mars(0, +10)
     
-
-
-def avance_terre(gd, hb):
-    global x2, y2, r2
-    x2, y2 = x2 + gd, y2 + hb
-    can1.coords(terre, x2 - 38, y2 - 38, x2 + 38, y2 + 38)
-    valDis.configure(text='Distance Terre - Mars : ' +
-      str(dist()) + ' millions de km')
-    valGrav.configure(text='Force de gravité Terre - Mars : ' +
-      str(grav()) + ' Newtons')
-
-
-def depl_gauche_terre():
-    avance_terre(-10, 0)
-
-def depl_droite_terre():
-    avance_terre(+10, 0)
-
-def depl_haut_terre():
-    avance_terre(0, -10)
-
-def depl_bas_terre():
-    avance_terre(0, +10)
-
 # --------------Programme principal-------------------
 
 # Variable globales
@@ -86,6 +66,8 @@ x1, y1, m1, r1 = 300, 500, 6.39 * 10**23, 20
 
 # cordonnées départ planete Terre, masse (kg), rayon (px)
 x2, y2, m2, r2 = 700, 500, 5.972 * 10**24, 38
+
+planete = 'par défaut'
 
 
 # Création du widget principal
@@ -111,23 +93,16 @@ mars = can1.create_oval(x1 - 20, y1 - 20, x1 + 20, y1 + 20, fill='red')
 terre = can1.create_oval(x2 - 38, y2 - 38, x2 + 38, y2 + 38, fill='blue')
 Button(fen1, text='Quitter', command=fen1.quit).grid(row=4, column=3, columnspan=4, sticky=W)
 
-# Button pour mars
+# Button pour chosir sa planete
+choix_mars = Radiobutton(fen1, text='Mars', variable=planete, value=0, command=choix_planete)
+choix_mars.grid(row=4, column=1)
+choix_terre = Radiobutton(fen1, text='Terre', variable=planete, value=1, command=choix_planete)
+choix_terre.grid(row=4, column=2)
 
-Button(fen1, text='gauche', command=depl_gauche_mars).grid(
-    row=4, column=1, sticky=E)
-Button(fen1, text='droite', command=depl_droite_mars).grid(
-    row=5, column=1, sticky=E)
-Button(fen1, text='haut', command=depl_haut_mars).grid(row=4, column=2, sticky=W)
-Button(fen1, text='bas', command=depl_bas_mars).grid(row=5, column=2, sticky=W)
+Label(fen1, text='Planète choisie : ' + str(choix_planete())).grid(row=5, column=1)
 
-# button pour la Terre
 
-Button(fen1, text='gauche', command=depl_gauche_terre).grid(
-    row=4, column=5, sticky=E)
-Button(fen1, text='droite', command=depl_droite_terre).grid(
-    row=5, column=5, sticky=E)
-Button(fen1, text='haut', command=depl_haut_terre).grid(row=4, column=6, sticky=W)
-Button(fen1, text='bas', command=depl_bas_terre).grid(row=5, column=6, sticky=W)
+
 
 # démarrage du réceptionnaire d'évènement
 fen1.mainloop()
