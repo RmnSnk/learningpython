@@ -49,6 +49,30 @@ def depl_haut_mars():
 
 def depl_bas_mars():
     avance_mars(0, +10)
+    
+
+
+def avance_terre(gd, hb):
+    global x2, y2, r2
+    x2, y2 = x2 + gd, y2 + hb
+    can1.coords(terre, x2 - 38, y2 - 38, x2 + 38, y2 + 38)
+    valDis.configure(text='Distance Terre - Mars : ' +
+      str(dist()) + ' millions de km')
+    valGrav.configure(text='Force de gravité Terre - Mars : ' +
+      str(grav()) + ' Newtons')
+
+
+def depl_gauche_terre():
+    avance_terre(-10, 0)
+
+def depl_droite_terre():
+    avance_terre(+10, 0)
+
+def depl_haut_terre():
+    avance_terre(0, -10)
+
+def depl_bas_terre():
+    avance_terre(0, +10)
 
 # --------------Programme principal-------------------
 
@@ -67,29 +91,41 @@ fen1 = Tk()
 fen1.title('Gravitation Mars vs Terre')
 
 # Création des widget esclaves
-Label(fen1, text='Masse de Mars : 6,39e+23 kg').grid(row=1, column=1)
-Label(fen1, text='Echelle : 100px = 19 millions de km').grid(row=1, column=2)
-Label(fen1, text='Masse de la Terre : 5,972e+24 kg').grid(row=1, column=3)
+Label(fen1, text='Masse de Mars : 6,39e+23 kg').grid(row=1, column=1, columnspan=2)
+Label(fen1, text='Echelle : 100px = 19 millions de km').grid(row=1, column=3, columnspan=4, sticky=W)
+Label(fen1, text='Masse de la Terre : 5,972e+24 kg').grid(row=1, column=5, columnspan=6)
 
 valDis = Label(fen1, text='Distance Terre - Mars : ' +
       str(dist()) + ' millions de km')
-valDis.grid(row=3, column=1)
+valDis.grid(row=3, column=1, columnspan=2)
 
 valGrav = Label(fen1, text='Force de gravité Terre - Mars : ' +
       str(grav()) + ' Newtons')
-valGrav.grid(row=3, column=3)
+valGrav.grid(row=3, column=5, columnspan=6)
 
 can1 = Canvas(fen1, bg='black', height=1000, width=1000)
-can1.grid(row=2, column=1, columnspan=3)
+can1.grid(row=2, column=1, columnspan=6)
 mars = can1.create_oval(x1 - 20, y1 - 20, x1 + 20, y1 + 20, fill='red')
 terre = can1.create_oval(x2 - 38, y2 - 38, x2 + 38, y2 + 38, fill='blue')
-Button(fen1, text='Quitter', command=fen1.quit).grid(row=4, column=2)
+Button(fen1, text='Quitter', command=fen1.quit).grid(row=4, column=3, columnspan=4, sticky=W)
+
+# Button pour mars
+
 Button(fen1, text='gauche', command=depl_gauche_mars).grid(
     row=4, column=1, sticky=E)
 Button(fen1, text='droite', command=depl_droite_mars).grid(
     row=5, column=1, sticky=E)
 Button(fen1, text='haut', command=depl_haut_mars).grid(row=4, column=2, sticky=W)
 Button(fen1, text='bas', command=depl_bas_mars).grid(row=5, column=2, sticky=W)
+
+# button pour la Terre
+
+Button(fen1, text='gauche', command=depl_gauche_terre).grid(
+    row=4, column=5, sticky=E)
+Button(fen1, text='droite', command=depl_droite_terre).grid(
+    row=5, column=5, sticky=E)
+Button(fen1, text='haut', command=depl_haut_terre).grid(row=4, column=6, sticky=W)
+Button(fen1, text='bas', command=depl_bas_terre).grid(row=5, column=6, sticky=W)
 
 # démarrage du réceptionnaire d'évènement
 fen1.mainloop()
