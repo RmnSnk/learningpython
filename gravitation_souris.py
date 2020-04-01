@@ -1,109 +1,67 @@
 # coding: utf-8
 
+# Modifier pointeur pour creer la planete
+
 from tkinter import *
 from math import sqrt
 
-# Version avec des clics de sours
-
-# 1 : planète rouge (Mars)
-# 2 : planère bleue (Terre)
-# echelle : 400 pixel = 76 million de kilomètre (distance Terre Mars)
-# Le diamètre des planete n'est pas à l'échelle, mais le ration sont bons
-# Rayon de mars : 3389,5 km = 20px, terre : 6371 km = 38px
-
-def dist():
-    'fonction qui renvoie la distance entre des deux planètes en millions de km'
-    global x1, y1, x2, y2
-    # calcul la distance Mars Terre en px
-    dist = sqrt((x2 - x1)**2 + (y2 - y1)**2)
-    # converti la distance en millions de km
-    dist = dist * 0.19
-    return dist
-
-def grav():
-    'fonction qui renvoie la force de gravité en la Terre et Mars en Newton'
-    global m1, m2
-    const_grav = 6.67428 / 10**11
-    grav = const_grav * m1 * m2 / (dist() * 10**6)**2
-    return grav
-
-# reste à programmer : la fonction de déplacement et les boutons
-# pour avancer Mars
-
-def avance_mars(gd, hb):
-    global x1, y1, r1
-    x1, y1 = x1 + gd, y1 + hb
-    can1.coords(mars, x1 - 20, y1 - 20, x1 + 20, y1 + 20)
-    valDis.configure(text='Distance Terre - Mars : ' +
-      str(dist()) + ' millions de km')
-    valGrav.configure(text='Force de gravité Terre - Mars : ' +
-      str(grav()) + ' Newtons')
 
 def choix_planete():
-    planete = planete.get()
-    return planete
-
-
-def depl_gauche_mars():
-    avance_mars(-10, 0)
-
-def depl_droite_mars():
-    avance_mars(+10, 0)
-
-def depl_haut_mars():
-    avance_mars(0, -10)
-
-def depl_bas_mars():
-    avance_mars(0, +10)
+    'Renvoie la valeur de planete_choisie pour pouvoir savoir quelle planete utilisée'
+    global planete
+    planete = planete_choisie.get()
+    choix.configure(text='La planete choisie est : ' + str(planete))
     
-# --------------Programme principal-------------------
+def pointeur(event):
+    'Fonction qui donne les coordonnées du clic'
+    clicx = event.x
+    clicy = event.y
+    print (clicx)  # debug
+    print (clicy)
+    return (clicx, clicy)
 
-# Variable globales
 
 
-# cordonnées départ planete Mars, masse (kg), rayon (px)
-x1, y1, m1, r1 = 300, 500, 6.39 * 10**23, 20   
-
-# cordonnées départ planete Terre, masse (kg), rayon (px)
-x2, y2, m2, r2 = 700, 500, 5.972 * 10**24, 38
-
-planete = 'par défaut'
-
+def creation_planete():
+    'Créer une planete ou l\' n on clique'
+    
 
 # Création du widget principal
 fen1 = Tk()
-fen1.title('Gravitation Mars vs Terre')
+fen1.title('Test buttons radio')
 
-# Création des widget esclaves
-Label(fen1, text='Masse de Mars : 6,39e+23 kg').grid(row=1, column=1, columnspan=2)
-Label(fen1, text='Echelle : 100px = 19 millions de km').grid(row=1, column=3, columnspan=4, sticky=W)
-Label(fen1, text='Masse de la Terre : 5,972e+24 kg').grid(row=1, column=5, columnspan=6)
-
-valDis = Label(fen1, text='Distance Terre - Mars : ' +
-      str(dist()) + ' millions de km')
-valDis.grid(row=3, column=1, columnspan=2)
-
-valGrav = Label(fen1, text='Force de gravité Terre - Mars : ' +
-      str(grav()) + ' Newtons')
-valGrav.grid(row=3, column=5, columnspan=6)
-
+# Création du canvas
 can1 = Canvas(fen1, bg='black', height=1000, width=1000)
 can1.grid(row=2, column=1, columnspan=6)
-mars = can1.create_oval(x1 - 20, y1 - 20, x1 + 20, y1 + 20, fill='red')
-terre = can1.create_oval(x2 - 38, y2 - 38, x2 + 38, y2 + 38, fill='blue')
-Button(fen1, text='Quitter', command=fen1.quit).grid(row=4, column=3, columnspan=4, sticky=W)
+can1.bind("<Button-1>", pointeur)
 
-# Button pour chosir sa planete
-choix_mars = Radiobutton(fen1, text='Mars', variable=planete, value=0, command=choix_planete)
-choix_mars.grid(row=4, column=1)
-choix_terre = Radiobutton(fen1, text='Terre', variable=planete, value=1, command=choix_planete)
-choix_terre.grid(row=4, column=2)
+# Création de widget esclaves
 
-Label(fen1, text='Planète choisie : ' + str(choix_planete())).grid(row=5, column=1)
+# Champs du haut
+
+Label(fen1, text='Masse de Mars : 6,39e+23 kg').grid(row=1, column=1, columnspan=2)
+Label(fen1, text='Echelle : 100px = 19 millions de km').grid(row=1, column=3, sticky=E)
+Label(fen1, text='Masse de la Terre : 5,972e+24 kg').grid(row=1, column=5, columnspan=6)
 
 
+# Bouton quitter
+Button(fen1, text='Quitter', command=fen1.quit).grid(row=3, column=6)
 
 
-# démarrage du réceptionnaire d'évènement
+# Bouton radio de choix de la planete
+planete_choisie = StringVar()
+bt1 = Radiobutton(fen1, text='Mars', variable=planete_choisie, value='Mars', command=choix_planete)
+bt1.grid(row = 3, column = 3)
+bt2 = Radiobutton(fen1, text='Terre', variable=planete_choisie, value='Terre', command=choix_planete)
+bt2.grid(row=3, column=4)
+
+choix = Label(fen1)
+choix.grid(row=4, column=3, sticky=E)
+
+
+
+
+
+# Boucle principale
 fen1.mainloop()
 fen1.destroy()
