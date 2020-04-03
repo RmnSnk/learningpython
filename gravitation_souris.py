@@ -20,10 +20,22 @@ def pointeur(event):
     global mars, terre
     if choix_planete() == 'Mars':
         can1.coords(oval_mars, clicx - mars[3], clicy - mars[3], clicx + mars[3], clicy + mars[3])
+        mars[0], mars[1] = clicx, clicy
     else:
         can1.coords(oval_terre, clicx - terre[3], clicy - terre[3], clicx + terre[3], clicy + terre[3])
-    
-    # return (clicx, clicy)
+        terre[0], terre[1] = clicx, clicy
+
+def dist():
+    'fonction qui renvoie la distance entre des deux planètes en millions de km'
+    global mars, terre
+    # calcul la distance Mars Terre en px
+    dist = sqrt((terre[0] - mars[0])**2 + (terre[1] - mars[1])**2)
+    # converti la distance en millions de km
+    dist = dist * 0.19
+    return dist
+
+## Fonction dist() terminée, il faut créer le label qui va renvoyer l'info sur la distance et ensuite coder grav()
+
     
     
 # Liste représentant les planetes [xdépart, ydépart, masse en kg, rayon en px, couleur]
