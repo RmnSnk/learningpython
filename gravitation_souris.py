@@ -24,6 +24,8 @@ def pointeur(event):
     else:
         can1.coords(oval_terre, clicx - terre[3], clicy - terre[3], clicx + terre[3], clicy + terre[3])
         terre[0], terre[1] = clicx, clicy
+    valDis.configure(text='Distance Terre - Mars : ' + str(dist()) + ' millions de km')    # mise à jour de la distance
+    valGrav.configure(text='Force de gravité Terre - Mars : ' + str(grav()) + ' Newtons')  # mise à jour de la gravité
 
 def dist():
     'fonction qui renvoie la distance entre des deux planètes en millions de km'
@@ -34,7 +36,12 @@ def dist():
     dist = dist * 0.19
     return dist
 
-## Fonction dist() terminée, il faut créer le label qui va renvoyer l'info sur la distance et ensuite coder grav()
+def grav():
+    'fonction qui renvoie la force de gravité en la Terre et Mars en Newton'
+    global mars, terre
+    const_grav = 6.67428 / 10**11
+    grav = const_grav * mars[2] * terre[2] / (dist() * 10**6)**2
+    return grav
 
     
     
@@ -56,10 +63,11 @@ can1.bind("<Button-1>", pointeur)
 oval_mars = can1.create_oval(mars[0] - mars[3], mars[1] - mars[3], mars[0] + mars[3], mars[1] + mars[3], fill=mars[4])
 oval_terre = can1.create_oval(terre[0] - terre[3], terre[1] - terre[3], terre[0] + terre[3], terre[1] + terre[3], fill=terre[4])
 
+
+
 # Création de widget esclaves
 
 # Champs du haut
-
 Label(fen1, text='Masse de Mars : 6,39e+23 kg').grid(row=1, column=1, columnspan=2)
 Label(fen1, text='Echelle : 100px = 19 millions de km').grid(row=1, column=3, sticky=E)
 Label(fen1, text='Masse de la Terre : 5,972e+24 kg').grid(row=1, column=5, columnspan=6)
@@ -79,8 +87,13 @@ bt2.grid(row=3, column=4)
 choix = Label(fen1)
 choix.grid(row=4, column=3, sticky=E)
 
+# Affiche la distance terre - mars
+valDis = Label(fen1, text='Distance Terre - Mars : ' + str(dist()) + ' millions de km')
+valDis.grid(row=5, column=1, columnspan=3, sticky=W)
 
-
+# Affiche la force de gravité qu'exerce les planètes l'une sur l'autre
+valGrav = Label(fen1, text='Force de gravité Terre - Mars : ' + str(grav()) + ' Newtons')
+valGrav.grid(row=5, column=4, columnspan=6, sticky=W)
 
 
 # Boucle principale
