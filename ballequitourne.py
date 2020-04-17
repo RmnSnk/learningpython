@@ -10,7 +10,7 @@ chgrp = [250, 250]
 
 ry = 150  # rayon de rotation
 # x,y de départ ; rayon ; couleur
-balle = [ry + chgrp[0], 0 + chgrp[1], 15, 'yellow']
+balle = [0 + ry + chgrp[0], 0 + chgrp[1], 15, 'yellow']
 
 ag = 0.17  # angle de rotation en radian
 
@@ -20,8 +20,8 @@ ag = 0.17  # angle de rotation en radian
 
 def rotation():
     global balle, ry, ag
-    balle[0] = ry * cos(ag)
-    balle[1] = ry * sin(ag)
+    balle[0] = ry * cos(ag) + chgrp[0]
+    balle[1] = ry * sin(ag) + chgrp[1]
     can.coords(balle_oval, balle[0] - balle[2], balle[1] - balle[2],
                balle[0] + balle[2], balle[1] + balle[2])  # a voir
     pass
@@ -36,7 +36,9 @@ fen.title("La petite balle qui avance")
 
 can = Canvas(fen, bg='grey', width=500, height=500)
 can.grid(row=1, column = 1, columnspan=2)
-balle_oval = can.create_oval(balle[0] - balle[2], balle[1] - balle[2], balle[0] + balle[2], balle[1] + balle[2], fill=balle[3])
+balle_oval = can.create_oval(balle[0] - balle[2], balle[1] - balle[2],
+                             balle[0] + balle[2], balle[1] + balle[2], fill=balle[3])
+centre_oval = can.create_oval(248, 248, 252, 252, fill='red')
 
 
 button_avance = Button(text="< >", command=rotation)
