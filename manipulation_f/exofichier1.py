@@ -23,7 +23,7 @@ def existance_fichier():
 
 def choix_action():
     print()
-    print('Fichier de travail :' + str(nom_fichier) + '\n')
+    print('Fichier de travail : ' + str(nom_fichier) + '\n')
     print('Que souhaitez vous faire ?')
     print('    Choisir un fichier :       1')
     print('    Afficher le fichier :      2')
@@ -61,7 +61,7 @@ def choix_action():
 def lire_fichier():
     'Fonction qui permet de lire un fichier'
     global nom_fichier
-    print('Affichage du fichier : \n' + str(nom_fichier))
+    print('### Affichage du fichier : ' + str(nom_fichier) + ' ###' + '\n')
     try:
         f = open(nom_fichier, 'r')
         t = f.read()
@@ -73,7 +73,7 @@ def lire_fichier():
 def ecrire_fichier():  # a coder pour écrire ligne par ligne
     'Fonction qui ecrit dans un fichier'
     global nom_fichier
-    print('Ecriture dans le fichier :' + str(nom_fichier))
+    print('### Ecriture dans le fichier :' + str(nom_fichier) + ' ###')
     try:
         f = open(nom_fichier, 'a')
         i = 1
@@ -83,6 +83,7 @@ def ecrire_fichier():  # a coder pour écrire ligne par ligne
                 i = 0
             else:
                 f.write(ligne)
+                f.write('\n')
     except:
         choix_action()
 
