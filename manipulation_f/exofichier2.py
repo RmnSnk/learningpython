@@ -66,52 +66,61 @@ def choix_action():
 def lire_fichier():
     'Fonction qui permet de lire un fichier'
     global nom_fichier
-    print('### Affichage du fichier : ' + str(nom_fichier) + ' ###' + '\n')
-    try:
-        f = open(nom_fichier, 'r')
-        t = f.read()
-        print(t)
-        f.close()
-    except:
+    if nom_fichier == "Aucun, merci de d'abord choisir un fichier (1)":
         choix_action()
+    else:
+        print('### Affichage du fichier : ' + str(nom_fichier) + ' ###' + '\n')
+        try:
+            f = open(nom_fichier, 'r')
+            t = f.read()
+            print(t)
+            f.close()
+        except:
+            choix_action()
 
 def ecrire_fichier():  # a coder pour écrire ligne par ligne
     'Fonction qui ecrit dans un fichier'
     global nom_fichier
-    print('### Ecriture dans le fichier : ' + str(nom_fichier) + ' ###')
-    try:
-        f = open(nom_fichier, 'a')
-        i = 1
-        while i:
-            ligne = input("# : ")
-            if ligne == "":
-                i = 0
-            else:
-                f.write(ligne)
-                f.write('\n')
-                f.close()
-    except:
+    if nom_fichier == "Aucun, merci de d'abord choisir un fichier (1)":
         choix_action()
+    else:
+        print('### Ecriture dans le fichier : ' + str(nom_fichier) + ' ###')
+        try:
+            f = open(nom_fichier, 'a')
+            i = 1
+            while i:
+                ligne = input("# : ")
+                if ligne == "":
+                    f.close()
+                    i = 0
+                else:
+                    f.write(ligne)
+                    f.write('\n')
+        except:
+            choix_action()
 
 def phrase_longue():
     'Fonction qui trouve la phrase la plus longue'
     global nom_fichier
-    print('### La phrase la plus longue du fichier ' +
-          str(nom_fichier) + ' est : ###')
-    f = open(nom_fichier, 'r')
-    i = 1
-    tmax = 'Fichier vide'
-    nmax = 0
-    while i:
-        t = f.readline()
-        n = len(t)
-        if n > nmax:
-            nmax = n
-            tmax = t
-        if n == 0:
-            f.close()
-            print(tmax + "(" + str(nmax-1) + ' caractères)')
-            break
+    if nom_fichier == "Aucun, merci de d'abord choisir un fichier (1)":
+        choix_action()
+    else:
+        print('### La phrase la plus longue du fichier ' +
+              str(nom_fichier) + ' est : ###')
+        f = open(nom_fichier, 'r')
+        i = 1
+        tmax = 'Fichier vide'
+        nmax = 0
+        while i:
+            t = f.readline()
+            n = len(t)
+            if n > nmax:
+                nmax = n
+                tmax = t
+            if n == 0:
+                f.close()
+                print(tmax + "(" + str(nmax-1) + ' caractères)')
+                break
         
 
 
