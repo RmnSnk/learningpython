@@ -53,17 +53,38 @@ def pendu(mot_secret):
     'Le joueur propose des lettres jusqu\'à la victoire ou la défaite'
     liste_mot = list(mot_secret)
     mot_encours = ["*", "*", "*", "*", "*", "*", "*", "*"]
-    i = 0
+    coup = 0  # Nombre de coups joués
+    x = []  # Mot en cours de résolution
+
+    while fin_partie(coup, x, mot_secret) == False:
+        choix = input("Lettre : ")
+        coup += 1
+        i = 0
+        while i <= 7:
+            if choix == liste_mot[i]:
+                mot_encours[i] = choix
+            i += 1
+            x = "".join(mot_encours)
+        print(x)
+        fin_partie(coup, x, mot_secret)
     
-    choix = input("Lettre : ")
+
+def fin_partie(coup, x, mot_secret):
+    """Fonction qui vérifie si la fin de partie est atteinte,
+    renvoie True si atteind"""
+    print(x)
+    print(mot_secret)
+    if str(x) == str(mot_secret):
+        print("Gagné")
+        return True
+    elif coup < 10:
+        return False    
+    else:
+        print("Game Over!")
+        return True
     
-    while i <= 7:
-        if choix == liste_mot[i]:
-            mot_encours[i] = choix
-        i += 1
     
-    x = "".join(mot_encours)
-    print(x)    
+
 
 # coder la boucle des lettres, la fin de partie
 # attention au caractère spéciaux e = e, é, ...
