@@ -16,19 +16,21 @@ def pendu(mot_secret):
     liste_lettre_proposees = []
 
     flag = 2  # flag 1 : proposition faite et bonne, 0 proposition faite et fausse, 2 pas de proposition
+    
+    nb_etoiles = 8
 
-
-    # il faut un flag pour savoir si le joueur tente la proposition
-    while j <= 8 or nb_etoiles != 0 or flag == 2:
-
+    while j <= 7 and nb_etoiles != 0 and flag == 2:
+        
         # Faire une fonction de test de proposition
         choix_avant_test_saisie = input(
             "Lettre ou #votre proposition : \n ----> ")
         liste_choix_avant_test_saisie = list(choix_avant_test_saisie)
 
         if liste_choix_avant_test_saisie[0] == "#":
+
             del liste_choix_avant_test_saisie[0]
             proposition = "".join(liste_choix_avant_test_saisie)
+
             if proposition == mot_secret:
                 flag = 1
                 # petite astuce pour calculer le nombre de point par victoire directe
@@ -72,13 +74,11 @@ def pendu(mot_secret):
         print(f"Il reste {nb_coups_restant} essais")
         lettre_proposees = "-".join(liste_lettre_proposees)
         print(f"Lettres déjà proposées : {lettre_proposees} \n")
-        
-        print(nb_etoiles) #debug
 
         if nb_etoiles == 0:
             break
 
-    if j > 8 or flag == 0:
+    if j > 7 or flag == 0:
         defaite()
     elif nb_etoiles == 0 or flag == 1:  # problème a trouver
         victoire(8 - j)
@@ -92,7 +92,7 @@ def pendu(mot_secret):
 def victoire(points):
     'Donne la victoire, le nombre de points et écrit le score'
     print(f"Félicitations, vous avez gagnez en {8- points} coups")
-    print(f"Vous gagnez donc {points} lors de cette partie")
+    print(f"Vous gagnez donc {points} point(s) lors de cette partie")
     # coder l'écriture du score (appel fonction avec le nombre de point en argument)
     pass
 

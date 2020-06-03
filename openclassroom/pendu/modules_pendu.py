@@ -62,16 +62,38 @@ def pendu(mot_secret):
     
     liste_mot_encours = ["*", "*", "*", "*", "*", "*", "*", "*"]
     
-    i, j = 0, 0
+    i, j = 0, 0  # i : les lettres du mot, j : le nombre de coup
     
     liste_lettre_proposees = []
 
-    # a modifier pour coder la fin de partie (7 pour 8 tentatives)
-    while j <= 7:
+    flag = 2  # flag 1 : proposition faite et bonne, 0 proposition faite et fausse, 2 pas de proposition
+    
+    nb_etoiles = 8
 
+    while j <= 7 and nb_etoiles != 0 and flag == 2:
+        
+        # Faire une fonction de test de proposition
+        choix_avant_test_saisie = input(
+            "Lettre ou #votre proposition : \n ----> ")
+        liste_choix_avant_test_saisie = list(choix_avant_test_saisie)
 
-        lettre_saisie = input("Lettre : ")
+        if liste_choix_avant_test_saisie[0] == "#":
+
+            del liste_choix_avant_test_saisie[0]
+            proposition = "".join(liste_choix_avant_test_saisie)
+
+            if proposition == mot_secret:
+                flag = 1
+                # petite astuce pour calculer le nombre de point par victoire directe
+                nb_etoiles = (8 - j)
+                break
+            else:
+                flag = 0
+                break            
+
+        lettre_saisie = choix_avant_test_saisie
         print()
+        j += 1
         liste_lettre_proposees.append(lettre_saisie)
 
         if lettre_saisie == "e":
@@ -95,26 +117,43 @@ def pendu(mot_secret):
             else:
                 pass  # pas forcément nécessaire
             i += 1
+        nb_etoiles = liste_mot_encours.count("*")
+        nb_coups_restant = 8 - j
         mot_encours = "".join(liste_mot_encours)
         print(f"----> {mot_encours}")
         i = 0
-        print(f"Il reste {7 -j} essais")
+        print(f"Il reste {nb_coups_restant} essais")
         lettre_proposees = "-".join(liste_lettre_proposees)
         print(f"Lettres déjà proposées : {lettre_proposees} \n")
-        j += 1
-    
 
-def fin_partie(coup, x, mot_secret):
-    """Fonction qui vérifie si la fin de partie est atteinte,
-    renvoie True si atteint"""
-    if str(x) == str(mot_secret):
-        print("Gagné")
-        return True
-    elif coup < 10:
-        return False    
+        if nb_etoiles == 0:
+            break
+
+    if j > 7 or flag == 0:
+        defaite(mot_secret)
+    elif nb_etoiles == 0 or flag == 1:  # problème a trouver
+        victoire(8 - j)
     else:
-        print("Game Over!")
-        return True
+        pass
 
-# coder la boucle des lettres, la fin de partie
-# le joueur doit pouvoir proposer un mot
+
+
+def victoire(points):
+    'Donne la victoire, le nombre de points et écrit le score'
+    print(f"Félicitations, vous avez gagnez en {8- points} coups")
+    print(f"Vous gagnez donc {points} point(s) lors de cette partie")
+    # coder l'écriture du score (appel fonction avec le nombre de point en argument)
+    pass
+
+
+def defaite(mot_secret):
+    "Donne la défaite, et écrit le score -2 points"
+    print("Désolé, vous avez perdu, votre score va diminuer de 2 points")
+    print(f"Le mot recherché était : {mot_secret}.")
+    # coder l'écriture du score (appel fonction avec le nombre de point en argument)
+    pass
+
+
+
+# coder l'écriture des scores
+# coder le test des lettres proposée
