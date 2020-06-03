@@ -21,6 +21,7 @@ def lecture_score():
     score = pickle.load(f)
     for nom, point in score.items():
         print(f"{nom} a {point} points")
+    print()
     f.close()
         
 
@@ -62,11 +63,16 @@ def pendu(mot_secret):
     liste_mot_encours = ["*", "*", "*", "*", "*", "*", "*", "*"]
     
     i, j = 0, 0
-
-    while j <= 10:  # a modifier pour coder la fin de partie
     
+    liste_lettre_proposees = []
+
+    # a modifier pour coder la fin de partie (7 pour 8 tentatives)
+    while j <= 7:
+
 
         lettre_saisie = input("Lettre : ")
+        print()
+        liste_lettre_proposees.append(lettre_saisie)
 
         if lettre_saisie == "e":
             test = ["e", "é", "è", "ê", "ë"]
@@ -83,16 +89,19 @@ def pendu(mot_secret):
         else:
             test = lettre_saisie
 
-        while i <= 7:
+        while i <= 7:  # car il y a 8 lettres dans le mot
             if (liste_mot_secret[i] in test) == True:
                 liste_mot_encours[i] = liste_mot_secret[i]
             else:
                 pass  # pas forcément nécessaire
             i += 1
         mot_encours = "".join(liste_mot_encours)
-        print(mot_encours)
+        print(f"----> {mot_encours}")
         i = 0
-    j += 1
+        print(f"Il reste {7 -j} essais")
+        lettre_proposees = "-".join(liste_lettre_proposees)
+        print(f"Lettres déjà proposées : {lettre_proposees} \n")
+        j += 1
     
 
 def fin_partie(coup, x, mot_secret):
