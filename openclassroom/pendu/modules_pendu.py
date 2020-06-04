@@ -4,9 +4,23 @@ import pickle
 from random import randint
 
 
+def logo():
+    print("""
+     JEU DU PENDU !
+       ==========
+	| /    |
+	|/     O
+	|     ~|~
+	|     /|
+	|
+	|
+   ===========
+   """)
+
 def regle():
     'Rappel les régles du pendu'
-    print("""Les régles sont simples :
+    print(
+        """Les régles sont simples :
     Le jeu tire au sort un mot d'exactement 8 lettres et vous avez 10 chances
     pour trouver ce mot. Les lettres autorisées sont toutes les lettres de
     l'alphabet, sans aucun accent. Par exemple "e" sera accepté pour e, é, è, ê ...
@@ -62,7 +76,8 @@ def pendu(mot_secret):
     
     liste_mot_encours = ["*", "*", "*", "*", "*", "*", "*", "*"]
     
-    i, j = 0, 0  # i : les lettres du mot, j : le nombre de coup
+    # i : les lettres du mot, j : le nombre de coup joués, k = npmbre erreur
+    i, j, k = 0, 0, 0
     
     liste_lettre_proposees = []
 
@@ -74,7 +89,7 @@ def pendu(mot_secret):
         
         # Faire une fonction de test de proposition
         choix_avant_test_saisie = input(
-            "Lettre ou #votre proposition : \n ----> ")
+            "Lettre ou #votre proposition : \n $ : ")
         liste_choix_avant_test_saisie = list(choix_avant_test_saisie)
 
         if liste_choix_avant_test_saisie[0] == "#":
@@ -93,7 +108,7 @@ def pendu(mot_secret):
 
         lettre_saisie = choix_avant_test_saisie
         print()
-        j += 1
+       # j += 1
         liste_lettre_proposees.append(lettre_saisie)
 
         if lettre_saisie == "e":
@@ -115,8 +130,15 @@ def pendu(mot_secret):
             if (liste_mot_secret[i] in test) == True:
                 liste_mot_encours[i] = liste_mot_secret[i]
             else:
-                pass  # pas forcément nécessaire
+                k += 1  # compte ne nombre de nom présent
+
             i += 1
+
+        if k == 8:  # si k = 8 la lettre n'est pas présente
+            j += 1
+       
+        k = 0
+
         nb_etoiles = liste_mot_encours.count("*")
         nb_coups_restant = 8 - j
         mot_encours = "".join(liste_mot_encours)
@@ -131,7 +153,7 @@ def pendu(mot_secret):
 
     if j > 7 or flag == 0:
         defaite(mot_secret)
-    elif nb_etoiles == 0 or flag == 1:  # problème a trouver
+    elif nb_etoiles == 0 or flag == 1: 
         victoire(8 - j)
     else:
         pass
@@ -140,7 +162,7 @@ def pendu(mot_secret):
 
 def victoire(points):
     'Donne la victoire, le nombre de points et écrit le score'
-    print(f"Félicitations, vous avez gagnez en {8- points} coups")
+    print(f"Félicitations, vous avez gagnez en {8- points} erreurs")
     print(f"Vous gagnez donc {points} point(s) lors de cette partie")
     # coder l'écriture du score (appel fonction avec le nombre de point en argument)
     pass
@@ -157,3 +179,4 @@ def defaite(mot_secret):
 
 # coder l'écriture des scores
 # coder le test des lettres proposée
+# corriger pendu() pour ne compter que les erreurs !

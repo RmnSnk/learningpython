@@ -3,6 +3,9 @@
 
 from modules_pendu import *
 
+# On affiche le logo
+logo()
+
 
 # On appel les règles
 regle()
