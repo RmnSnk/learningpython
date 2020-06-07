@@ -19,7 +19,7 @@ print(f"Bienvenue {nj}, ton score est de {score_joueur(nj)} point(s) \n")
 
 # Le programme chosit un mot au hasard
 mot_secret = random_word()
-#print(mot_secret)  # debug
+print(mot_secret)  # debug
 
 # Le joueur choisit des lettres jusqu'à la fin de la partie
-pendu(mot_secret)
+pendu(mot_secret, nj)
