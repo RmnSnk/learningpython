@@ -22,4 +22,4 @@ mot_secret = random_word()
 print(mot_secret)  # debug
 
 # Le joueur choisit des lettres jusqu'à la fin de la partie
-pendu(mot_secret, nj)
+pendu(mot_secret)
