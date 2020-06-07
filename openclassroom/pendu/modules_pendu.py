@@ -68,7 +68,7 @@ def random_word():
 # devra retourner 2 mot : un normal avec les accent et un transformé
 
 
-def pendu(mot_secret):
+def pendu(mot_secret, nj):
     'On test la lettre et on permet de remplacer les caractères spéciaux'
 
     alphab = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l",
@@ -92,8 +92,6 @@ def pendu(mot_secret):
 
     while j <= 7 and nb_etoiles != 0 and flag == 2:
 
-        nb_coups_restant = 8 - j
-        
         l = True
 
         while l:
@@ -120,12 +118,17 @@ def pendu(mot_secret):
 
                     if valid == "O" and choix_avant_test_saisie == mot_secret:
                         l = False
-                        # coder le nombre de points
-                        victoire(nb_coups_restant)
-                        flag = 1
+
+                        try:  # si victoire à 8 points
+                            victoire(nb_coups_restant, nj)
+                            flag = 1
+                        except:
+                            victoire(8, nj)
+                            flag = 1
+
                     elif valid == "O" and choix_avant_test_saisie != mot_secret:
                         l = False
-                        defaite(mot_secret)
+                        defaite(mot_secret, nj)
                         flag = 0
                     else:
                         pass
@@ -162,6 +165,8 @@ def pendu(mot_secret):
        
         k = 0
 
+        nb_coups_restant = 8 - j
+
         nb_etoiles = liste_mot_encours.count("*")
         mot_encours = " ".join(liste_mot_encours)
         print(f"==> {mot_encours} <== \n")
@@ -174,33 +179,46 @@ def pendu(mot_secret):
             break
 
     if j > 7 or flag == 0:
-        defaite(mot_secret)
+        defaite(mot_secret, nj)
     elif nb_etoiles == 0 or flag == 1: 
-        victoire(8 - j)
+        victoire(8 - j, nj)
     else:
         pass
 
 
 
-def victoire(points):
+def victoire(points, nj):
     'Donne la victoire, le nombre de points et écrit le score'
-    print(f"Félicitations, vous avez gagnez en {8- points} erreurs")
-    print(f"Vous gagnez donc {points} point(s) lors de cette partie")
-    # coder l'écriture du score (appel fonction avec le nombre de point en argument)
+    print()
+    print(f"Félicitations, vous avez gagnez en {8- points} erreurs.")
+    print(f"Vous gagnez donc {points} point(s) lors de cette partie.")
+    ecriture_score(points, nj)
     quit()
-    pass
 
 
-def defaite(mot_secret):
+def defaite(mot_secret, nj):
     "Donne la défaite, et écrit le score -2 points"
-    print("Désolé, vous avez perdu, votre score va diminuer de 2 points")
+    print()
+    print("Désolé, vous avez perdu, votre score va diminuer de 2 points.")
     print(f"Le mot recherché était : {mot_secret}.")
-    # coder l'écriture du score (appel fonction avec le nombre de point en argument)
-    (quit)
-    pass
+    ecriture_score(-2, nj)
+    quit()
+    
 
+def ecriture_score(points, nj):
+    "fonction qui écrit le score"
+    nouveau_score = score_joueur(nj) + points
+    print(f"Le joueur {nj} a maintenant {nouveau_score} points. \n")
+    # coder l'écriture du score avec pickle
 
+    fr = open('score.pickle', 'rb')
+    score = pickle.load(fr)  # score est un dictionnaire
+    fr.close()
 
-# coder l'écriture des scores
-# coder le test des lettres proposée
-# corriger pendu() pour ne compter que les erreurs !
+    score[nj] = nouveau_score
+
+    fw = open('score.pickle', 'wb')
+    pickle.dump(score, fw)
+    fw.close()
+
+    lecture_score()
