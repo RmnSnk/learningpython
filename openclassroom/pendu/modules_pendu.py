@@ -122,7 +122,7 @@ def pendu(mot_secret, nj):
                         try:  # si victoire à 8 points
                             victoire(nb_coups_restant, nj)
                             flag = 1
-                        except:
+                        except NameError:
                             victoire(8, nj)
                             flag = 1
 
