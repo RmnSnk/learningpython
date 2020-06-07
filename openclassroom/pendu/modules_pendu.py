@@ -92,8 +92,6 @@ def pendu(mot_secret, nj):
 
     while j <= 7 and nb_etoiles != 0 and flag == 2:
 
-        nb_coups_restant = 8 - j
-        
         l = True
 
         while l:
@@ -120,9 +118,14 @@ def pendu(mot_secret, nj):
 
                     if valid == "O" and choix_avant_test_saisie == mot_secret:
                         l = False
-                        # coder le nombre de points
-                        victoire(nb_coups_restant, nj)
-                        flag = 1
+
+                        try:  # si victoire à 8 points
+                            victoire(nb_coups_restant, nj)
+                            flag = 1
+                        except:
+                            victoire(8, nj)
+                            flag = 1^
+
                     elif valid == "O" and choix_avant_test_saisie != mot_secret:
                         l = False
                         defaite(mot_secret, nj)
@@ -162,6 +165,8 @@ def pendu(mot_secret, nj):
        
         k = 0
 
+        nb_coups_restant = 8 - j
+
         nb_etoiles = liste_mot_encours.count("*")
         mot_encours = " ".join(liste_mot_encours)
         print(f"==> {mot_encours} <== \n")
@@ -184,15 +189,17 @@ def pendu(mot_secret, nj):
 
 def victoire(points, nj):
     'Donne la victoire, le nombre de points et écrit le score'
-    print(f"Félicitations, vous avez gagnez en {8- points} erreurs")
-    print(f"Vous gagnez donc {points} point(s) lors de cette partie")
+    print()
+    print(f"Félicitations, vous avez gagnez en {8- points} erreurs.")
+    print(f"Vous gagnez donc {points} point(s) lors de cette partie.")
     ecriture_score(points, nj)
     quit()
 
 
 def defaite(mot_secret, nj):
     "Donne la défaite, et écrit le score -2 points"
-    print("Désolé, vous avez perdu, votre score va diminuer de 2 points")
+    print()
+    print("Désolé, vous avez perdu, votre score va diminuer de 2 points.")
     print(f"Le mot recherché était : {mot_secret}.")
     ecriture_score(-2, nj)
     quit()
@@ -201,6 +208,17 @@ def defaite(mot_secret, nj):
 def ecriture_score(points, nj):
     "fonction qui écrit le score"
     nouveau_score = score_joueur(nj) + points
-    print(f"le joueur {nj} a maintenant {nouveau_score} points")
+    print(f"Le joueur {nj} a maintenant {nouveau_score} points. \n")
     # coder l'écriture du score avec pickle
-    
+
+    fr = open('score.pickle', 'rb')
+    score = pickle.load(fr)  # score est un dictionnaire
+    fr.close()
+
+    score[nj] = nouveau_score
+
+    fw = open('score.pickle', 'wb')
+    pickle.dump(score, fw)
+    fw.close()
+
+    lecture_score()
