@@ -124,7 +124,7 @@ def pendu(mot_secret, nj):
                             flag = 1
                         except:
                             victoire(8, nj)
-                            flag = 1^
+                            flag = 1
 
                     elif valid == "O" and choix_avant_test_saisie != mot_secret:
                         l = False
