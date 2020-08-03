@@ -1,27 +1,36 @@
 # coding:utf-8
 
-from random import *
+"""On créer une classe Carte et on remplit la liste jeu52cartes avec des instanciation
+de cette classe.
+Puis on renvoie la liste créer comme paramètre d'un classe représentant un jeu de carte
+dans laquelle on va créer plusieurs méthode"""
 
-"Petit script de test de class"
+enseignecarte = ["coeur", "pique", "carreau", "trèfle"]
+valeurcarte = ["as", "roi", "dame", "valet", 10, 9, 8, 7, 6, 5, 4, 3, 2]
+jeu52cartes = []
 
 class Carte():
     
-    enseignecarte = ["coeur", "pique", "carreau", "trèfle"]
-    valeurcarte = ["as", "roi", "dame", "valet", 10, 9, 8, 7, 6, 5, 4, 3, 2]
+    def __init__(self, enseigne, valeur):
 
-    def __init__(self):
-        enseignecarte = ["coeur", "pique", "carreau", "trèfle"]
-        valeurcarte = ["as", "roi", "dame", "valet", 10, 9, 8, 7, 6, 5, 4, 3, 2]
-
-        self.enseigne = choice(enseignecarte)
-        self.valeur = choice(valeurcarte)
+        self.enseigne = enseigne
+        self.valeur = valeur
 
     def __str__(self):
         return f"{self.valeur} de {self.enseigne}"
 
-i = 0
-while i < 11:
-    carte1 = Carte()
-    print(carte1)
-    i += 1
+class Jeu52():
+
+    def __init__(self, deck):
+        self.deck = deck
+
+    def __str__(self):
+        """a coder pour afficher le contenu du deck"""
+
+for i in enseignecarte:
+    for j in valeurcarte:
+        carte = Carte(i,j)
+        jeu52cartes.append(carte)
+
+deck = Jeu52(jeu52cartes)
 
