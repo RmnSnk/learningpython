@@ -5,6 +5,8 @@ de cette classe.
 Puis on renvoie la liste créer comme paramètre d'un classe représentant un jeu de carte
 dans laquelle on va créer plusieurs méthode"""
 
+from random import *
+
 class Carte():
     
     def __init__(self, enseigne, valeur):
@@ -31,7 +33,19 @@ class Jeu52():
         for i in self.listcarte:
             strlistcarte.append(str(i))
         return str(strlistcarte)
-        
+    
+    def piocher(self):
+        shuffle(self.listcarte)
+        try: 
+            carte = self.listcarte[0]
+            del self.listcarte[0]
+        except IndexError:
+            print("Il n'y a plus de carte")
+        return carte
 
-jeu52 = Jeu52()
-print(jeu52)
+
+jeu = Jeu52()
+print(jeu)
+carte = jeu.piocher()
+print(carte)
+print(jeu)
