@@ -35,7 +35,7 @@ class Jeu52():
         return str(strlistcarte)
     
     
-    def melanger(self):
+    def melanger():
         shuffle(self.listcarte)
     
     def piocher(self):
