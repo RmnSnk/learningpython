@@ -34,10 +34,15 @@ class Jeu52():
             strlistcarte.append(str(i))
         return str(strlistcarte)
     
-    
+    def __len__(self):
+        return len(self.listcarte)
+
     def melanger(self):
         shuffle(self.listcarte)
     
+    def __contains__(self, carte):
+        return carte in self.listcarte
+
     def piocher(self):
         shuffle(self.listcarte)
         try: 
@@ -49,7 +54,5 @@ class Jeu52():
 
 
 #jeu = Jeu52()
-#print(jeu)
 #carte = jeu.piocher()
 #print(carte)
-#print(jeu)
