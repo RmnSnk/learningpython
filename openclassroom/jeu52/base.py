@@ -17,6 +17,9 @@ class Carte():
     def __str__(self):
         return f"{self.valeur} de {self.enseigne}"
 
+    def __repr__(self):
+        return f"valeur = '{self.valeur}', enseigne = '{self.enseigne}"
+
 class Jeu52():
    
     def __init__(self):

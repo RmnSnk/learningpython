@@ -53,7 +53,6 @@ class Jeu52():
         return carte
 
 
-jeu = Jeu52()
-carte = jeu.piocher()
-print(carte)
-carte in jeu
+#jeu = Jeu52()
+#carte = jeu.piocher()
+#print(carte)
