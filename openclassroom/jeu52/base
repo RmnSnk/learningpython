@@ -7,12 +7,19 @@ dans laquelle on va créer plusieurs méthode"""
 
 from random import *
 
+DICTCOULEUR = {"trèfle" : "noir", "pique" : "noir", "coeur" : "rouge", "carreau" : "rouge"}
+
 class Carte():
     
+
     def __init__(self, enseigne, valeur):
 
         self.enseigne = enseigne
         self.valeur = valeur
+
+    @property
+    def couleur(self):
+        return DICTCOULEUR[self.enseigne]
 
     def __str__(self):
         return f"{self.valeur} de {self.enseigne}"
@@ -56,6 +63,8 @@ class Jeu52():
         return carte
 
 
-#jeu = Jeu52()
-#carte = jeu.piocher()
-#print(carte)
+jeu = Jeu52()
+for i in range(10):
+    carte = jeu.piocher()
+    print(carte)
+    print(carte.couleur)
