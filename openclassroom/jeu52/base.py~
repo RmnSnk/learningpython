@@ -72,7 +72,7 @@ class Moniter:
         self.carte = jeu.listcarte[0] # cet attribut contient l'objet Carte en première position
 
     def __next__(self):
-        if self.carte.enseigne == "coeur":
+        if self.carte.enseigne == "ioeur":
             self.carte += 1
             return self.carte
         else:
