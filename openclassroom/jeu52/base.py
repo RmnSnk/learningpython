@@ -65,23 +65,23 @@ class Jeu52():
             print("Il n'y a plus de carte")
         return carte
 
+
 class Moniter:
 
     def __init__(self,jeu):
         self.jeu = jeu.listcarte #jeu52 est la liste listcarte, attribut de la classe Jeu52
-        self.carte = jeu.listcarte[0] # cet attribut contient l'objet Carte en première position
+        self.position = -1
 
     def __next__(self):
-        if self.carte.enseigne == "coeur":
-            self.carte += 1
-            return self.carte
-        else:
-            self.carte +=1
+        if self.position == len(self.jeu)-1:
+            raise StopIteration
+        self.position += 1
+        return self.jeu[self.position]
 
     
 
 jeu = Jeu52()
 #jeu.melanger()
 
-for carte in jeu.listcarte:
+for carte in jeu:
     print(carte)
