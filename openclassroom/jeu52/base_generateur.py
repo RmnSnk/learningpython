@@ -53,9 +53,6 @@ class Jeu52():
     def __contains__(self, carte):
         return carte in self.listcarte
 
-    def __iter__(self):
-        return Moniter(self) # l'itérateur est une classe
-
     def piocher(self):
         shuffle(self.listcarte)
         try: 
@@ -65,26 +62,22 @@ class Jeu52():
             print("Il n'y a plus de carte")
         return carte
 
-
-class Moniter:
-
-    def __init__(self,jeu):
-        self.jeu = jeu.listcarte #jeu52 est la liste listcarte, attribut de la classe Jeu52
-        self.position = -1
-
-    def __next__(self):
-        if self.position == len(self.jeu)-1:
-            raise StopIteration
+    def generateur_enseigne(self,enseigne):
         
-        self.position += 1
+        i = 0
+        while i< len(self.listcarte):
+            if self.listcarte[i].enseigne == enseigne:
+                yield self.listcarte[i]
+                i += 1
+            else:
+                i += 1 
 
-        if self.jeu[self.position].enseigne == "pique":
-            return self.jeu[self.position]
+
+
     
 
 jeu = Jeu52()
 jeu.melanger()
 
-for carte in jeu:
-    if carte != None:
-        print(carte)
+for carte in jeu.generateur_enseigne("coeur"):
+    print(carte)

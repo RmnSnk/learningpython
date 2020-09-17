@@ -54,7 +54,7 @@ class Jeu52():
         return carte in self.listcarte
 
     def __iter__(self):
-        return Moniter(self) # l'itérateur est une classe
+        return Iterpique(self) # l'itérateur est une classe
 
     def piocher(self):
         shuffle(self.listcarte)
@@ -66,22 +66,26 @@ class Jeu52():
         return carte
 
 
-class Moniter:
+class Iterpique:
 
     def __init__(self,jeu):
-        self.jeu = jeu.listcarte #jeu52 est la liste listcarte, attribut de la classe Jeu52
+        """On passe 2 attributs : la liste à parcourir et la position de départ"""
+        self.jeu = jeu.listcarte 
         self.position = -1
 
     def __next__(self):
         if self.position == len(self.jeu)-1:
             raise StopIteration
+        
         self.position += 1
-        return self.jeu[self.position]
 
+        if self.jeu[self.position].enseigne == "pique":
+            return self.jeu[self.position]
     
 
 jeu = Jeu52()
-#jeu.melanger()
+jeu.melanger()
 
 for carte in jeu:
-    print(carte)
+    if carte != None: # L'itérateur renvoie tourjours une valeur, même "None", on trie après le passage 
+        print(carte)
