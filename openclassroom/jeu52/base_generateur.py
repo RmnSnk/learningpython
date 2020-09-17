@@ -72,6 +72,16 @@ class Jeu52():
             else:
                 i += 1 
 
+    def generateur_valeur(self,valeur):
+        
+        i = 0
+        while i< len(self.listcarte):
+            if self.listcarte[i].valeur == valeur:
+                yield self.listcarte[i]
+                i += 1
+            else:
+                i += 1 
+
 
 
     
@@ -80,4 +90,8 @@ jeu = Jeu52()
 jeu.melanger()
 
 for carte in jeu.generateur_enseigne("coeur"):
+    print(carte)
+
+
+for carte in jeu.generateur_valeur("as"):
     print(carte)
