@@ -91,3 +91,8 @@ jeu.melanger()
 
 for carte in jeu.generateur_enseigne("coeur"):
     print(carte)
+print()    
+
+
+for carte in jeu.generateur_valeur("as"):
+    print(carte)
