@@ -32,7 +32,7 @@ class Jeu52():
     def __init__(self):
         self.listcarte = [] # le jeu de 52 carte, contient 52 objets Carte
         enseignecarte = ["coeur", "pique", "carreau", "trèfle"]
-        valeurcarte = ["as", "roi", "dame", "valet", 10, 9, 8, 7, 6, 5, 4, 3, 2]
+        valeurcarte = ["as", "roi", "dame", "valet", "10", "9", "8", "7", "6", "5", "4", "3", "2"]
 
         for i in enseignecarte:
             for j in valeurcarte:
@@ -87,10 +87,32 @@ class Jeu52():
 jeu = Jeu52()
 jeu.melanger()
 
-for carte in jeu.generateur_enseigne("coeur"):
+#test des générateurs
+"""for carte in jeu.generateur_enseigne("coeur"):
     print(carte)
 print()    
 
 
 for carte in jeu.generateur_valeur("as"):
-    print(carte)
+    print(carte)"""
+
+# On pioche une carte
+carte_piochée = jeu.piocher()
+print(carte_piochée)
+
+
+# on crée une carte et vérifie si la même se trouve dans le jeu
+ens = input("Merci de saisir une enseigne : ")
+val = input("Merci de saisir un valeur : ")
+
+carte_cree = Carte(ens,val)
+print(carte_cree)
+    
+test = False    
+for carte in jeu.listcarte:
+    if carte.enseigne == ens and carte.valeur == val:
+        test = True
+if test == True:
+    print("la carte est dans le jeu")
+else:
+    print("la carte n'est pas dans le jeu")
