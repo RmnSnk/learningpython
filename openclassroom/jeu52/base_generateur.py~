@@ -80,6 +80,16 @@ class Jeu52():
             else:
                 i += 1 
 
+    def test_presence(self,ens,val):
+        """Méthode pour savoir si une carte créée à la main se trouve dans jeu de départ"""
+        test = False    
+        for carte in self.listcarte:
+            if carte.enseigne == ens and carte.valeur == val:
+                test = True
+        if test == True:
+            print("la carte est dans le jeu")
+        else:
+            print("la carte n'est pas dans le jeu")
 
 
     
@@ -96,19 +106,19 @@ print()
 for carte in jeu.generateur_valeur("as"):
     print(carte)"""
 
+# On pioche une carte
+carte_piochée = jeu.piocher()
+print(f"La carte piochée est : {carte_piochée}")
+
 
 # on crée une carte et vérifie si la même se trouve dans le jeu
+print("On crée une carte et on vérifie si elle se trouve dans le jeu")
 ens = input("Merci de saisir une enseigne : ")
 val = input("Merci de saisir un valeur : ")
 
 carte_cree = Carte(ens,val)
-print(carte_cree)
-    
-test = False    
-for carte in jeu.listcarte:
-    if carte.enseigne == ens and carte.valeur == val:
-        test = True
-if test == True:
-    print("la carte est dans le jeu")
-else:
-    print("la carte n'est pas dans le jeu")
+print(f"la carte créée est : {carte_cree}")
+
+jeu.test_presence(ens,val)
+
+# prochaine étape coder une classe Main qui aura une taille variable et contiendra le nom du joueur qui sera créée par une nouvelle classe Joueur
