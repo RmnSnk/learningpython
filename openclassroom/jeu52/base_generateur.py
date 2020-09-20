@@ -92,6 +92,34 @@ class Jeu52():
             print("la carte n'est pas dans le jeu")
 
 
+class Joueur():
+
+    def __init__(self,nom):
+        self.nom = nom
+
+    def __str__(self):
+        return  str(self.nom)
+
+
+class Main():
+
+    def __init__(self,taille,joueur):
+        """ La main est d'une taille variable"""
+        self.taille = taille
+        self.propri = joueur.nom
+        self.listecartemain = []
+
+    def __str__(self):
+        return str(f"La main de {self.propri} contient {self.taille} cartes")
+
+
+nom = "Romain"
+romain = Joueur(nom)
+print(romain)
+
+main = Main(7, romain) #romain est une instance de la classe Joueur
+print(main)
+
     
 
 jeu = Jeu52()
@@ -106,7 +134,9 @@ print()
 for carte in jeu.generateur_valeur("as"):
     print(carte)"""
 
-# On pioche une carte
+
+#Test pour vérifié si la carte créée à la main se trouve dans le jeu
+"""# On pioche une carte
 carte_piochée = jeu.piocher()
 print(f"La carte piochée est : {carte_piochée}")
 
@@ -119,6 +149,9 @@ val = input("Merci de saisir un valeur : ")
 carte_cree = Carte(ens,val)
 print(f"la carte créée est : {carte_cree}")
 
-jeu.test_presence(ens,val)
+jeu.test_presence(ens,val)"""
 
-# prochaine étape coder une classe Main qui aura une taille variable et contiendra le nom du joueur qui sera créée par une nouvelle classe Joueur
+# Prochaine étape coder l'attribut listecartemain de la classe Main afin de transférer 7 cartes du jeu vers la main
+# Puis faire : remettre carte dans le jeu
+# Puis faire : trier le jeu ou la main dans l'ordre
+# Puis refaire un programme propre qui simulera le jeu de la bataille et donnera sur 1000 parties le nombre de tour à jouer afin qu'il y ait un gagnant, le nom du gagnant de chaque partie.
