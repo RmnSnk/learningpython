@@ -110,7 +110,16 @@ class Main():
         self.listecartemain = []
 
     def __str__(self):
-        return str(f"La main de {self.propri} contient {self.taille} cartes")
+        strlistcartemain = [] # Contient les 52 str(Carte)
+        for i in self.listecartemain:
+            strlistcartemain.append(str(i))
+        return str(strlistcartemain)
+ 
+    def piocher_main(self, jeu):
+        for i in range(self.taille):
+            self.listecartemain.append(jeu.listcarte[i])
+        for i in range(self.taille):
+            del jeu.listcarte[0]
 
 
 nom = "Romain"
@@ -118,12 +127,12 @@ romain = Joueur(nom)
 print(romain)
 
 main = Main(7, romain) #romain est une instance de la classe Joueur
-print(main)
 
     
 
 jeu = Jeu52()
 jeu.melanger()
+
 
 #test des générateurs
 """for carte in jeu.generateur_enseigne("coeur"):
@@ -152,6 +161,9 @@ print(f"la carte créée est : {carte_cree}")
 jeu.test_presence(ens,val)"""
 
 # Prochaine étape coder l'attribut listecartemain de la classe Main afin de transférer 7 cartes du jeu vers la main
-# Puis faire : remettre carte dans le jeu
 # Puis faire : trier le jeu ou la main dans l'ordre
 # Puis refaire un programme propre qui simulera le jeu de la bataille et donnera sur 1000 parties le nombre de tour à jouer afin qu'il y ait un gagnant, le nom du gagnant de chaque partie.
+
+main.piocher_main(jeu)
+print(main)
+print(jeu)
